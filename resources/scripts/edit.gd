@@ -7,13 +7,15 @@ var num: int = 8:
 		num = new_num
 		$ScrollContainer/CodeList.num = new_num
 		$Show.num = new_num
+		self.changed_show()
 		self.file.bit = new_num
+var button_size: int = 64:
+	set(new_size):
+		button_size = new_size
+		$Show.button_size = new_size
+		$ScrollContainer/CodeList.button_size = new_size
 
-var file: Dictionary = {
-	'version': 1,
-	'bit': 8,
-	'codes': []
-}:
+var file: Dictionary:
 	get:
 		return {
 			'version': 1,
@@ -24,15 +26,16 @@ var file: Dictionary = {
 		file = new_file
 		$ScrollContainer/CodeList.num = new_file.bit
 		$Show.num = new_file.bit
+		self.changed_show()
 		$ScrollContainer/CodeList.codes = new_file.codes
 
 func _on_sort_children() -> void:
+	$Show.size = $Show.custom_minimum_size
 	$Show.position.x = (self.size.x - $Show.size.x) / 2
 	$ScrollContainer.position.y = $Show.size.y
 	$ScrollContainer.size.y = self.size.y - $Show.size.y
-	$ScrollContainer.size.x = self.size.x
+	$ScrollContainer.size.x = max($ScrollContainer.custom_minimum_size.x, $Show.size.x)
 	self.custom_minimum_size.x = max($Show.size.x, $ScrollContainer.size.x)
-	print('-', $ScrollContainer.size)
 
 func changed_show() -> void:
 	$Show.clean()

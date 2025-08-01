@@ -5,11 +5,17 @@
 [ext_resource type="Texture2D" uid="uid://dibahl6n7s7vy" path="res://resources/images/1.svg" id="3_ppt5a"]
 [ext_resource type="Texture2D" uid="uid://jwb7hie2nbqy" path="res://resources/images/2.svg" id="4_jvbk2"]
 
-[node name="BitLine" type="HBoxContainer"]
+[node name="BitLine" type="Container"]
 offset_right = 40.0
 offset_bottom = 40.0
-theme_override_constants/separation = 0
 script = ExtResource("1_gklj8")
 icons = Array[Texture2D]([ExtResource("2_hevqj"), ExtResource("3_ppt5a"), ExtResource("4_jvbk2")])
+
+[node name="Dividers" type="Control" parent="."]
+layout_mode = 2
+
+[node name="Bits" type="HBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 0
 
 [connection signal="sort_children" from="." to="." method="_on_sort_children"]

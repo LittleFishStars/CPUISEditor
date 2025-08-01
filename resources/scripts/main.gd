@@ -1,5 +1,11 @@
 extends Container
 
+var new_file: Dictionary = {
+	'version': 1,
+	'bit': 8,
+	'codes': []
+}
+
 var file: Dictionary:
 	get:
 		return $ScrollContainer/Edit.file
@@ -8,7 +14,13 @@ var file: Dictionary:
 var path: String = 'user://temp.cis':
 	set(new_path):
 		path = new_path
+		var file = self.read(new_path)
+		if file != {}:
+			self.file = file
+		
 		var file_name = '.'.join((new_path.split('/')[-1]).split('.').slice(0, -1))
+		if new_path == 'user://temp.cis':
+			file_name = '新文件'
 		DisplayServer.window_set_title('指令集编辑器--' + file_name)
 var setting: Dictionary = {
 	'last': self.path,
@@ -18,9 +30,7 @@ var setting: Dictionary = {
 func _ready() -> void:
 	DisplayServer.window_set_title('指令集编辑器--新文件')
 	self.get_setting()
-	var file = self.read(self.path)
-	if file != {}:
-		self.file = file
+	self.path = self.setting.last
 
 func get_setting() -> void:
 	var setting = JsonReader.read('user://config.json')
@@ -39,8 +49,8 @@ func _notification(what):
 
 func _on_sort_children() -> void:
 	$TextureRect.size = self.size
+	$ScrollContainer.position.x = 0
 	$ScrollContainer.position.y = $MenuBar.size.y
-	$ScrollContainer.position.x = (self.size.x - $ScrollContainer.size.x) / 2
 	$ScrollContainer.size.x = self.size.x
 	$ScrollContainer.size.y = self.size.y - $MenuBar.size.y
 
@@ -51,15 +61,18 @@ func _on_file_id_pressed(id: int) -> void:
 			$OpenFile.current_path = self.setting.last_open_path
 			$OpenFile.show()
 		2:
+			self.path = 'user://temp.cis'
+			self.file = self.new_file
+		3:
 			if self.path == 'user://temp.cis':
 				$SaveFile.show()
 			else:
 				self.save(self.path)
-		3:
-			$SaveFile.show()
 		4:
-			$ScrollContainer/Edit.clean()
+			$SaveFile.show()
 		5:
+			$ScrollContainer/Edit.clean()
+		6:
 			$Setting.show()
 
 func show_error(massage: String) -> void:
@@ -98,5 +111,6 @@ func save(path: String) -> void:
 func _on_save_file_file_selected(path: String) -> void:
 	self.save(path)
 
-func _on_setting_close(bit: int) -> void:
+func _on_setting_close(bit: int, button_size: int) -> void:
 	$ScrollContainer/Edit.num = bit
+	$ScrollContainer/Edit.button_size = button_size

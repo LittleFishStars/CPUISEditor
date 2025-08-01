@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://cnhksl7oc621l"]
+
+[ext_resource type="Script" uid="uid://bi4kh0k67wda1" path="res://resources/scripts/setting_item.gd" id="1_4dxcp"]
+
+[node name="SettingItem" type="Container"]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_4dxcp")
+
+[node name="Label2" type="Label" parent="."]
+layout_mode = 2
+
+[connection signal="sort_children" from="." to="." method="_on_sort_children"]

@@ -8,10 +8,14 @@ signal changed
 	set(new_size):
 		button_size = new_size
 		$BitLine.button_size = new_size
+		for child in $Control.get_children():
+			child.button_size = new_size
 @export var num: int = 8:
 	set(new_num):
 		num = new_num
 		$BitLine.num = new_num
+		for child in $Control.get_children():
+			child.num = new_num
 
 var code: Array:
 	get:
@@ -24,13 +28,12 @@ func _ready() -> void:
 	$BitLine.button_size = button_size
 
 func _on_sort_children() -> void:
+	$BitLine.size = $BitLine.custom_minimum_size
 	$Control.size = Vector2(8 + $BitLine.size.x, 44.5)
 	$BitLine.position.x = 4
 	$BitLine.position.y = $Control.size.y
-	self.custom_minimum_size = Vector2.ZERO
-	self.size.x = $Control.size.x
-	self.size.y = $BitLine.position.y + $BitLine.size.y
-	self.custom_minimum_size = self.size
+	self.custom_minimum_size.x = $Control.size.x
+	self.custom_minimum_size.y = $BitLine.position.y + $BitLine.size.y
 	$Background.size = self.size
 
 func _on_bit_line_changed() -> void:
@@ -42,7 +45,8 @@ func add_name(code_name: String, select: Array) -> void:
 	child.start = select[0]
 	child.end = select[1]
 	child.code_name = code_name
-	child.get_node('Name').editable = false
+	child.use = false
+	child.button_size = self.button_size
 	child.rendering()
 
 func clean() -> void:

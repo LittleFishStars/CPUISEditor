@@ -27,7 +27,7 @@ func _on_copy_pressed() -> void:
 	self.copy.emit($Code.code)
 
 func _on_sort_children() -> void:
-	self.size.x = $Code.size.x + $Button.size.x
+	self.custom_minimum_size.x = $Code.size.x + $Button.size.x
 	$Background.size = self.size
 	$Button/Panel.size = $Button.size
 

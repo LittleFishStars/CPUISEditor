@@ -10,7 +10,10 @@ resource_name = "center"
 script/source = "extends ScrollContainer
 
 func _on_sort_children() -> void:
-	$Edit.position.x = (self.size.x - $Edit.size.x) / 2
+	$Edit.size = $Edit.custom_minimum_size
+	if $Edit.size.x < self.size.x:
+		$Edit.position.x = (self.size.x - $Edit.size.x) / 2
+		self.scroll_horizontal = 0
 	$Edit.size.y = self.size.y
 "
 
@@ -34,21 +37,23 @@ theme_override_constants/h_separation = 1
 [node name="File" type="PopupMenu" parent="MenuBar"]
 title = "文件"
 size = Vector2i(100, 124)
-item_count = 7
+item_count = 8
 item_0/text = "打开..."
 item_0/id = 1
-item_1/id = 0
-item_1/separator = true
-item_2/text = "保存"
-item_2/id = 2
-item_3/text = "另存为"
+item_1/text = "新文件"
+item_1/id = 2
+item_2/id = 0
+item_2/separator = true
+item_3/text = "保存"
 item_3/id = 3
-item_4/text = "清空"
+item_4/text = "另存为"
 item_4/id = 4
-item_5/id = 0
-item_5/separator = true
-item_6/text = "设置"
-item_6/id = 5
+item_5/text = "清空"
+item_5/id = 5
+item_6/id = 0
+item_6/separator = true
+item_7/text = "设置"
+item_7/id = 6
 
 [node name="About" type="PopupMenu" parent="MenuBar"]
 title = "关于"

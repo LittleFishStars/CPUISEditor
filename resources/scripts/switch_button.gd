@@ -11,16 +11,12 @@ var state = 0:
 @export var button_size: int = 64:
 	set(new_size):
 		button_size = new_size
-		self.size = Vector2(new_size, new_size)
+		self.custom_minimum_size = Vector2(new_size, new_size)
 
 @export var icons: Array[Texture2D] = [icon]:
 	set(new_icons):
 		icons = new_icons
 		self.icon = new_icons[self.state]
-
-func _ready() -> void:
-	self.icon = self.icons[self.state]
-	self.size = Vector2(self.button_size, self.button_size)
 
 func _gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:

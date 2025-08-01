@@ -41,10 +41,8 @@ func _ready() -> void:
 func _on_sort_children() -> void:
 	$BitLine.position.x = $Selector.margin
 	$BitLine.position.y = $Selector.size.y
-	self.custom_minimum_size = Vector2.ZERO
-	self.size.x = $Selector.size.x
-	self.size.y = $BitLine.position.y + $BitLine.size.y
-	self.custom_minimum_size = self.size
+	self.custom_minimum_size.x = $Selector.size.x
+	self.custom_minimum_size.y = $BitLine.position.y + $BitLine.size.y
 
 func _on_bit_line_changed() -> void:
 	self.changed.emit()

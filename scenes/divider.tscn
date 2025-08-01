@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://b8rww7uxyxa2n"]
+
+[ext_resource type="StyleBox" uid="uid://dfcfi2y712xcj" path="res://resources/styles/divider.tres" id="1_cksip"]
+
+[node name="Divider" type="VSeparator"]
+offset_right = 4.0
+offset_bottom = 40.0
+theme_override_constants/separation = 4
+theme_override_styles/separator = ExtResource("1_cksip")

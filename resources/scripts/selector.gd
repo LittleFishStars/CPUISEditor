@@ -7,6 +7,14 @@ signal changed
 	"pos": Vector2(0, 0), 
 	"pressed": false
 }
+
+@export var use: bool = true:
+	set(new_use):
+		use = new_use
+		$Left.disabled = not new_use
+		$Right.disabled = not new_use
+		$Name.editable = new_use
+
 @export var margin: int = 4:
 	set(new_margin):
 		margin = new_margin
@@ -15,7 +23,6 @@ signal changed
 @export var button_size: int = 64:
 	set(new_size):
 		button_size = new_size
-		self.standardization()
 		self.rendering()
 		self.sort_children.emit()
 
@@ -88,8 +95,8 @@ func rendering() -> void:
 		$Right.position.x = self.end * self.button_size - $Right.size.x
 	$Selector.position.x = $Left.position.x
 	$Selector.size.x = $Right.position.x + $Right.size.x - $Left.position.x
-	$Name.position.x = $Selector.position.x
 	$Name.size.x = $Selector.size.x
+	$Name.position.x = $Selector.position.x + ($Selector.size.x - $Name.size.x) / 2
 
 func _on_button_up() -> void:
 	self.mouse.pressed = false
@@ -99,19 +106,15 @@ func _on_button_up() -> void:
 	self.changed.emit()
 
 func _on_sort_children() -> void:
-	$Name.size.x = (self.end - self.start) * self.button_size
-	$Name.position.x = self.start * self.button_size
+	self.rendering()
 	$Name.position.y = 0
-	$Selector.size = $Name.size
-	$Selector.position.x = $Name.position.x
-	$Selector.position.y = $Name.size.y - 2
+	$Selector.position.y = $Name.size.y
 	$Left.size = Vector2(4, $Selector.size.y)
-	$Left.position = $Selector.position
 	$Right.size = $Left.size
-	$Right.position.x = $Selector.size.x - $Right.size.x
+	$Left.position.y = $Selector.position.y
 	$Right.position.y = $Selector.position.y
-	add_margin()
-	for child in get_children():
+	self.add_margin()
+	for child in self.get_children():
 		child.position.y += self.margin / 2
-	self.size.x = self.num * self.button_size + self.margin * 2
-	self.size.y = $Selector.position.y + $Selector.size.y / 2 + self.margin
+	self.custom_minimum_size.x = self.num * self.button_size + self.margin * 2
+	self.custom_minimum_size.y = $Selector.position.y + $Selector.size.y / 2 + self.margin

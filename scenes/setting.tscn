@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://c1aul1ujrloa"]
+[gd_scene load_steps=4 format=3 uid="uid://c1aul1ujrloa"]
 
 [ext_resource type="Script" uid="uid://cple6rj1xdlry" path="res://resources/scripts/setting.gd" id="1_sjyvh"]
+[ext_resource type="Script" uid="uid://bi4kh0k67wda1" path="res://resources/scripts/setting_item.gd" id="2_u58eq"]
 
 [sub_resource type="GDScript" id="GDScript_2f3vj"]
 resource_name = "center"
@@ -28,30 +29,36 @@ script = SubResource("GDScript_2f3vj")
 [node name="SettingList" type="VBoxContainer" parent="ScrollContainer"]
 layout_mode = 2
 
-[node name="Bit" type="Control" parent="ScrollContainer/SettingList"]
+[node name="Bit" type="Container" parent="ScrollContainer/SettingList"]
 layout_mode = 2
-
-[node name="Label" type="Label" parent="ScrollContainer/SettingList/Bit"]
-layout_mode = 1
-offset_right = 64.0
-offset_bottom = 23.0
+script = ExtResource("2_u58eq")
 text = "指令位数"
-vertical_alignment = 1
-text_overrun_behavior = 4
+metadata/_custom_type_script = "uid://bi4kh0k67wda1"
 
 [node name="BitSet" type="SpinBox" parent="ScrollContainer/SettingList/Bit"]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -86.5625
-offset_bottom = 31.0
-grow_horizontal = 0
+layout_mode = 2
 min_value = 1.0
 max_value = 256.0
 value = 8.0
 rounded = true
 allow_greater = true
+update_on_text_changed = true
+custom_arrow_step = 1.0
+
+[node name="Size" type="Container" parent="ScrollContainer/SettingList"]
+layout_mode = 2
+script = ExtResource("2_u58eq")
+text = "图标大小"
+metadata/_custom_type_script = "uid://bi4kh0k67wda1"
+
+[node name="SizeSet" type="SpinBox" parent="ScrollContainer/SettingList/Size"]
+layout_mode = 2
+min_value = 16.0
+max_value = 1024.0
+value = 64.0
+rounded = true
+allow_greater = true
+allow_lesser = true
 update_on_text_changed = true
 custom_arrow_step = 1.0
 
