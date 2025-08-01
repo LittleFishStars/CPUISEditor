@@ -1,0 +1,59 @@
+[gd_scene load_steps=3 format=3 uid="uid://c1aul1ujrloa"]
+
+[ext_resource type="Script" uid="uid://cple6rj1xdlry" path="res://resources/scripts/setting.gd" id="1_sjyvh"]
+
+[sub_resource type="GDScript" id="GDScript_2f3vj"]
+resource_name = "center"
+script/source = "extends ScrollContainer
+
+func _on_sort_children() -> void:
+	$SettingList.size = self.size
+"
+
+[node name="Setting" type="Window"]
+title = "设置"
+initial_position = 2
+size = Vector2i(300, 200)
+exclusive = true
+script = ExtResource("1_sjyvh")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_2f3vj")
+
+[node name="SettingList" type="VBoxContainer" parent="ScrollContainer"]
+layout_mode = 2
+
+[node name="Bit" type="Control" parent="ScrollContainer/SettingList"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ScrollContainer/SettingList/Bit"]
+layout_mode = 1
+offset_right = 64.0
+offset_bottom = 23.0
+text = "指令位数"
+vertical_alignment = 1
+text_overrun_behavior = 4
+
+[node name="BitSet" type="SpinBox" parent="ScrollContainer/SettingList/Bit"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -86.5625
+offset_bottom = 31.0
+grow_horizontal = 0
+min_value = 1.0
+max_value = 256.0
+value = 8.0
+rounded = true
+allow_greater = true
+update_on_text_changed = true
+custom_arrow_step = 1.0
+
+[connection signal="close_requested" from="." to="." method="_on_close_requested"]
+[connection signal="sort_children" from="ScrollContainer" to="ScrollContainer" method="_on_sort_children"]

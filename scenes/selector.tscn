@@ -1,0 +1,55 @@
+[gd_scene load_steps=6 format=3 uid="uid://cjqiuwe6egaa3"]
+
+[ext_resource type="Script" uid="uid://5ftu4brn8ilp" path="res://resources/scripts/selector.gd" id="1_7ji5i"]
+[ext_resource type="StyleBox" uid="uid://b1yiwfsseqi7j" path="res://resources/styles/line_edit.tres" id="1_g5dyd"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_beyvv"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sc1ji"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_beyvv"]
+bg_color = Color(1, 1, 1, 0)
+border_width_left = 2
+border_width_right = 2
+border_color = Color(1, 1, 1, 1)
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[node name="Selector" type="Container"]
+script = ExtResource("1_7ji5i")
+
+[node name="Name" type="LineEdit" parent="."]
+layout_mode = 2
+theme_override_colors/selection_color = Color(0.67069, 0.67069, 0.67069, 1)
+theme_override_colors/font_placeholder_color = Color(0.310617, 0.310617, 0.310617, 1)
+theme_override_colors/font_selected_color = Color(0, 0, 0, 1)
+theme_override_colors/font_uneditable_color = Color(0.325441, 0.325441, 0.325441, 1)
+theme_override_colors/font_color = Color(0.18359, 0.18359, 0.18359, 1)
+theme_override_styles/focus = ExtResource("1_g5dyd")
+theme_override_styles/read_only = ExtResource("1_g5dyd")
+theme_override_styles/normal = ExtResource("1_g5dyd")
+alignment = 1
+draw_control_chars = true
+select_all_on_focus = true
+
+[node name="Left" type="Button" parent="."]
+layout_mode = 2
+mouse_default_cursor_shape = 10
+theme_override_styles/focus = SubResource("StyleBoxEmpty_beyvv")
+flat = true
+
+[node name="Right" type="Button" parent="."]
+layout_mode = 2
+mouse_default_cursor_shape = 10
+theme_override_styles/focus = SubResource("StyleBoxEmpty_sc1ji")
+flat = true
+
+[node name="Selector" type="Label" parent="."]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_beyvv")
+
+[connection signal="sort_children" from="." to="." method="_on_sort_children"]
+[connection signal="button_down" from="Left" to="." method="_on_left_button_down"]
+[connection signal="button_up" from="Left" to="." method="_on_button_up"]
+[connection signal="button_down" from="Right" to="." method="_on_right_button_down"]
+[connection signal="button_up" from="Right" to="." method="_on_button_up"]

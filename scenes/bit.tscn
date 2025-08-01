@@ -1,0 +1,23 @@
+[gd_scene load_steps=6 format=3 uid="uid://cn1pmcsgoilio"]
+
+[ext_resource type="Texture2D" uid="uid://bv0g34hgkip04" path="res://resources/images/0.svg" id="1_nje35"]
+[ext_resource type="Script" uid="uid://hwc2keucoj2w" path="res://resources/scripts/switch_button.gd" id="1_ud5jx"]
+[ext_resource type="Texture2D" uid="uid://dibahl6n7s7vy" path="res://resources/images/1.svg" id="3_c8v1o"]
+[ext_resource type="Texture2D" uid="uid://jwb7hie2nbqy" path="res://resources/images/2.svg" id="4_u22ue"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_c8v1o"]
+
+[node name="Bit" type="Button"]
+custom_minimum_size = Vector2(64, 64)
+offset_right = 64.0
+offset_bottom = 64.0
+mouse_default_cursor_shape = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_c8v1o")
+button_mask = 3
+icon = ExtResource("1_nje35")
+flat = true
+icon_alignment = 1
+expand_icon = true
+script = ExtResource("1_ud5jx")
+icons = Array[Texture2D]([ExtResource("1_nje35"), ExtResource("3_c8v1o"), ExtResource("4_u22ue")])
+metadata/_custom_type_script = "uid://hwc2keucoj2w"

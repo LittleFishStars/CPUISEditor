@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://do47lvvaf1rxv"]
+
+[ext_resource type="Script" uid="uid://cykw0ja8wguuq" path="res://resources/scripts/edit.gd" id="1_1chun"]
+[ext_resource type="PackedScene" uid="uid://c6ye210xif2v1" path="res://scenes/show.tscn" id="2_mgtug"]
+[ext_resource type="PackedScene" uid="uid://b0bdth62gj15m" path="res://scenes/code_list.tscn" id="3_gcqwv"]
+
+[sub_resource type="GDScript" id="GDScript_1chun"]
+resource_name = "center"
+script/source = "extends ScrollContainer
+
+func _on_sort_children() -> void:
+	self.custom_minimum_size.x = $CodeList.size.x
+	$CodeList.position.x = (self.size.x - $CodeList.size.x) / 2
+"
+
+[node name="Edit" type="Container"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_1chun")
+
+[node name="Show" parent="." instance=ExtResource("2_mgtug")]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 2
+script = SubResource("GDScript_1chun")
+
+[node name="CodeList" parent="ScrollContainer" instance=ExtResource("3_gcqwv")]
+layout_mode = 2
+
+[connection signal="sort_children" from="." to="." method="_on_sort_children"]
+[connection signal="changed" from="Show" to="." method="changed_show"]
+[connection signal="sort_children" from="ScrollContainer" to="ScrollContainer" method="_on_sort_children"]
+[connection signal="changed" from="ScrollContainer/CodeList" to="." method="changed_show"]

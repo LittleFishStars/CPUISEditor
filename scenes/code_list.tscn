@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://b0bdth62gj15m"]
+
+[ext_resource type="Script" uid="uid://bihla4dc7cucq" path="res://resources/scripts/code_list.gd" id="1_ub6fi"]
+[ext_resource type="Texture2D" uid="uid://5ureb1n4sysm" path="res://resources/images/Add.svg" id="2_egw76"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6jodh"]
+
+[node name="CodeList" type="VBoxContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_ub6fi")
+
+[node name="List" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Add" type="Button" parent="."]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_6jodh")
+icon = ExtResource("2_egw76")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[connection signal="pressed" from="Add" to="." method="_on_add_pressed"]
+[connection signal="pressed" from="Add" to="." method="code_changed"]

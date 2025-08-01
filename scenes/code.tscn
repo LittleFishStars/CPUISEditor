@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://doywmvphidya5"]
+
+[ext_resource type="Script" uid="uid://b0w3dq7ir10i6" path="res://resources/scripts/code.gd" id="1_o4p4s"]
+[ext_resource type="PackedScene" uid="uid://chbnxgkda8ya" path="res://scenes/bit_line.tscn" id="2_354nb"]
+[ext_resource type="PackedScene" uid="uid://cjqiuwe6egaa3" path="res://scenes/selector.tscn" id="2_sc1ji"]
+
+[node name="Code" type="Container"]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_o4p4s")
+
+[node name="BitLine" parent="." instance=ExtResource("2_354nb")]
+layout_mode = 2
+
+[node name="Selector" parent="." instance=ExtResource("2_sc1ji")]
+layout_mode = 2
+
+[connection signal="sort_children" from="." to="." method="_on_sort_children"]
+[connection signal="changed" from="BitLine" to="." method="_on_bit_line_changed"]
+[connection signal="changed" from="Selector" to="." method="_on_selector_changed"]

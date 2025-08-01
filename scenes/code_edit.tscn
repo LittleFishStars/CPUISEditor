@@ -1,0 +1,81 @@
+[gd_scene load_steps=9 format=3 uid="uid://swhd348ewbyi"]
+
+[ext_resource type="Script" uid="uid://tw8pwydt0pxj" path="res://resources/scripts/code_edit.gd" id="1_r4hli"]
+[ext_resource type="PackedScene" uid="uid://doywmvphidya5" path="res://scenes/code.tscn" id="2_xgcia"]
+[ext_resource type="Texture2D" uid="uid://bh6eony7qv20r" path="res://resources/images/Copy.svg" id="3_awxfw"]
+[ext_resource type="Texture2D" uid="uid://dkv1y04uxdw8l" path="res://resources/images/Del.svg" id="3_xgcia"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_awxfw"]
+bg_color = Color(0.202742, 0.296434, 0.401354, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.126739, 0.160128, 0.184532, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ohk0j"]
+bg_color = Color(0.197769, 0.324298, 0.40289, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.0873894, 0.141817, 0.19897, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_awxfw"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ohk0j"]
+
+[node name="CodeEdit" type="HBoxContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/separation = 0
+script = ExtResource("1_r4hli")
+
+[node name="Background" type="Panel" parent="."]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_awxfw")
+
+[node name="Code" parent="." instance=ExtResource("2_xgcia")]
+layout_mode = 2
+
+[node name="Button" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="Button"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ohk0j")
+
+[node name="Copy" type="Button" parent="Button"]
+custom_minimum_size = Vector2(48, 0)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_awxfw")
+icon = ExtResource("3_awxfw")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="Del" type="Button" parent="Button"]
+custom_minimum_size = Vector2(48, 0)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ohk0j")
+icon = ExtResource("3_xgcia")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[connection signal="sort_children" from="." to="." method="_on_sort_children"]
+[connection signal="changed" from="Code" to="." method="_on_code_changed"]
+[connection signal="pressed" from="Button/Copy" to="." method="_on_copy_pressed"]
+[connection signal="pressed" from="Button/Copy" to="." method="_on_code_changed"]
+[connection signal="pressed" from="Button/Del" to="." method="_on_del_pressed"]
+[connection signal="pressed" from="Button/Del" to="." method="_on_code_changed"]

@@ -1,0 +1,15 @@
+[gd_scene load_steps=5 format=3 uid="uid://chbnxgkda8ya"]
+
+[ext_resource type="Script" uid="uid://dedi0bfcoxtnl" path="res://resources/scripts/bit_line.gd" id="1_gklj8"]
+[ext_resource type="Texture2D" uid="uid://bv0g34hgkip04" path="res://resources/images/0.svg" id="2_hevqj"]
+[ext_resource type="Texture2D" uid="uid://dibahl6n7s7vy" path="res://resources/images/1.svg" id="3_ppt5a"]
+[ext_resource type="Texture2D" uid="uid://jwb7hie2nbqy" path="res://resources/images/2.svg" id="4_jvbk2"]
+
+[node name="BitLine" type="HBoxContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/separation = 0
+script = ExtResource("1_gklj8")
+icons = Array[Texture2D]([ExtResource("2_hevqj"), ExtResource("3_ppt5a"), ExtResource("4_jvbk2")])
+
+[connection signal="sort_children" from="." to="." method="_on_sort_children"]

@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://c6ye210xif2v1"]
+
+[ext_resource type="Script" uid="uid://6dedr0wukwan" path="res://resources/scripts/show.gd" id="1_onxdx"]
+[ext_resource type="PackedScene" uid="uid://chbnxgkda8ya" path="res://scenes/bit_line.tscn" id="2_bo6qm"]
+[ext_resource type="Texture2D" uid="uid://dibahl6n7s7vy" path="res://resources/images/1.svg" id="3_qi3vw"]
+[ext_resource type="Texture2D" uid="uid://jwb7hie2nbqy" path="res://resources/images/2.svg" id="4_wm2jf"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tipki"]
+bg_color = Color(0.305674, 0.453719, 0.625059, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.126739, 0.160128, 0.184532, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="Show" type="Container"]
+script = ExtResource("1_onxdx")
+
+[node name="Background" type="Panel" parent="."]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_tipki")
+
+[node name="BitLine" parent="." instance=ExtResource("2_bo6qm")]
+layout_mode = 2
+icons = Array[Texture2D]([ExtResource("3_qi3vw"), ExtResource("4_wm2jf")])
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 2
+
+[connection signal="sort_children" from="." to="." method="_on_sort_children"]
+[connection signal="changed" from="BitLine" to="." method="_on_bit_line_changed"]

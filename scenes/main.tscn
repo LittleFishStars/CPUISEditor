@@ -1,0 +1,109 @@
+[gd_scene load_steps=6 format=3 uid="uid://86ujjanf8xqa"]
+
+[ext_resource type="Script" uid="uid://k8ey6kgdg86l" path="res://resources/scripts/main.gd" id="1_sugp2"]
+[ext_resource type="Texture2D" uid="uid://bq7k2lx2ver0o" path="res://resources/icons/代码编辑器.svg" id="2_tefeu"]
+[ext_resource type="PackedScene" uid="uid://do47lvvaf1rxv" path="res://scenes/edit.tscn" id="3_sugp2"]
+[ext_resource type="PackedScene" uid="uid://c1aul1ujrloa" path="res://scenes/setting.tscn" id="4_jyhfs"]
+
+[sub_resource type="GDScript" id="GDScript_jyhfs"]
+resource_name = "center"
+script/source = "extends ScrollContainer
+
+func _on_sort_children() -> void:
+	$Edit.position.x = (self.size.x - $Edit.size.x) / 2
+	$Edit.size.y = self.size.y
+"
+
+[node name="Main" type="Container"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_sugp2")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("2_tefeu")
+stretch_mode = 5
+
+[node name="MenuBar" type="MenuBar" parent="."]
+layout_mode = 2
+theme_override_constants/h_separation = 1
+
+[node name="File" type="PopupMenu" parent="MenuBar"]
+title = "文件"
+size = Vector2i(100, 124)
+item_count = 7
+item_0/text = "打开..."
+item_0/id = 1
+item_1/id = 0
+item_1/separator = true
+item_2/text = "保存"
+item_2/id = 2
+item_3/text = "另存为"
+item_3/id = 3
+item_4/text = "清空"
+item_4/id = 4
+item_5/id = 0
+item_5/separator = true
+item_6/text = "设置"
+item_6/id = 5
+
+[node name="About" type="PopupMenu" parent="MenuBar"]
+title = "关于"
+item_count = 4
+item_0/text = "教程"
+item_0/id = 1
+item_1/text = "论坛"
+item_1/id = 2
+item_2/id = 0
+item_2/separator = true
+item_3/text = "关于本软件"
+item_3/id = 3
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 2
+vertical_scroll_mode = 0
+script = SubResource("GDScript_jyhfs")
+
+[node name="Edit" parent="ScrollContainer" instance=ExtResource("3_sugp2")]
+layout_mode = 2
+
+[node name="OpenFile" type="FileDialog" parent="."]
+title = "Open a File"
+initial_position = 2
+ok_button_text = "Open"
+cancel_button_text = "取消"
+file_mode = 0
+access = 2
+filters = PackedStringArray("*.cis")
+use_native_dialog = true
+
+[node name="SaveFile" type="FileDialog" parent="."]
+cancel_button_text = "取消"
+access = 2
+filters = PackedStringArray("*.cis")
+use_native_dialog = true
+
+[node name="ErrorWindow" type="AcceptDialog" parent="."]
+title = "警告！"
+initial_position = 2
+unresizable = true
+popup_window = true
+
+[node name="Massage" type="AcceptDialog" parent="."]
+title = "提示"
+initial_position = 2
+unresizable = true
+popup_window = true
+
+[node name="Setting" parent="." instance=ExtResource("4_jyhfs")]
+visible = false
+
+[connection signal="sort_children" from="." to="." method="_on_sort_children"]
+[connection signal="id_pressed" from="MenuBar/File" to="." method="_on_file_id_pressed"]
+[connection signal="sort_children" from="ScrollContainer" to="ScrollContainer" method="_on_sort_children"]
+[connection signal="file_selected" from="OpenFile" to="." method="_on_open_file_file_selected"]
+[connection signal="file_selected" from="SaveFile" to="." method="_on_save_file_file_selected"]
+[connection signal="close" from="Setting" to="." method="_on_setting_close"]
