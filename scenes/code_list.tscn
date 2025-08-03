@@ -24,5 +24,5 @@ flat = true
 icon_alignment = 1
 expand_icon = true
 
-[connection signal="pressed" from="Add" to="." method="code_changed"]
 [connection signal="pressed" from="Add" to="." method="_on_add_pressed"]
+[connection signal="pressed" from="Add" to="." method="code_changed"]

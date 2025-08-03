@@ -42,10 +42,11 @@ func _on_bit_line_changed() -> void:
 func add_name(code_name: String, select: Array) -> void:
 	var child = self.selector.instantiate()
 	$Control.add_child(child)
+	child.use = false
+	child.num = self.num
 	child.start = select[0]
 	child.end = select[1]
 	child.code_name = code_name
-	child.use = false
 	child.button_size = self.button_size
 	child.rendering()
 
